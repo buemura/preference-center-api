@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -13,7 +13,12 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new LoggerInterceptor());
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Preference Center API')
@@ -26,6 +31,6 @@ async function bootstrap() {
   SwaggerModule.setup('/docs', app, document);
 
   const port = configService.getOrThrow<number>('PORT');
-  await app.listen(port);
+  await app.listen(port).then(() => console.log(`API running at :${port}`));
 }
 bootstrap();
