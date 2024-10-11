@@ -1,4 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 
 import { TYPES } from '@/constants/types';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -17,6 +21,11 @@ export class UserService {
   }
 
   async createUser(input: CreateUserDto): Promise<User> {
+    const userExists = await this.userRepository.findByEmail(input.email);
+    if (userExists) {
+      throw new UnprocessableEntityException('User already registered');
+    }
+
     const user = User.create({
       email: input.email,
     });
