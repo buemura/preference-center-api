@@ -1,8 +1,14 @@
+import { Provider } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 import { TYPES } from '@/constants/types';
+import {
+  TypeOrmConsentEventRepository,
+  TypeOrmConsentRepository,
+  TypeOrmUserRepository,
+} from './repositories';
 
-export const databaseProviders = [
+export const databaseProviders: Provider[] = [
   {
     provide: TYPES.DataSource,
     useFactory: async () => {
@@ -20,5 +26,17 @@ export const databaseProviders = [
 
       return dataSource.initialize();
     },
+  },
+  {
+    provide: TYPES.UserRepository,
+    useClass: TypeOrmUserRepository,
+  },
+  {
+    provide: TYPES.ConsentRepository,
+    useClass: TypeOrmConsentRepository,
+  },
+  {
+    provide: TYPES.ConsentEventRepository,
+    useClass: TypeOrmConsentEventRepository,
   },
 ];

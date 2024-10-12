@@ -17,7 +17,12 @@ export class TypeOrmUserRepository implements UserRepository {
   }
 
   async findById(id: string): Promise<User> {
-    return this.repository.findOne({ where: { id } });
+    const user = await this.repository.findOneOrFail({
+      where: { id },
+      relations: ['consents'],
+    });
+
+    return user;
   }
 
   async findByEmail(email: string): Promise<User> {
