@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsEnum, IsNotEmpty, IsUUID } from 'class-validator';
 
-import { ConsentId } from '@/modules/consent/consent.enum';
+import { ConsentId } from '@/modules/consent/enums';
 
 export class CreateEventDto {
   @ApiProperty()

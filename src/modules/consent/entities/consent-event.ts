@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
-import { Consent } from '../consent/consent';
-import { User } from '../user/user';
+
+import { User } from '@/modules/user/entities';
+import { Consent } from './consent';
 
 type ConsentEventCtor = {
   userId: string;

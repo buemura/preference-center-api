@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { EventModule } from './event/event.module';
+import { EventModule } from './consent/consent-event.module';
 import { UserModule } from './user/user.module';
 
 @Module({

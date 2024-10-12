@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm';
 
-import { Consent } from '@/modules/consent/consent';
+import { Consent } from '@/modules/consent/entities';
 
 export const ConsentSchema = new EntitySchema<Consent>({
   name: 'Consent',

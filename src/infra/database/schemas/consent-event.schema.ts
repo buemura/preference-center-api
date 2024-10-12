@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm';
 
-import { ConsentEvent } from '@/modules/event/event';
+import { ConsentEvent } from '@/modules/consent/entities';
 
 export const ConsentEventSchema = new EntitySchema<ConsentEvent>({
   name: 'ConsentEvent',

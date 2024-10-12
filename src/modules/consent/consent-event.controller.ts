@@ -1,14 +1,14 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { Consent } from '../consent/consent';
+import { ConsentEventService } from './consent-event.service';
 import { CreateEventDto } from './dtos';
-import { EventService } from './event.service';
+import { Consent } from './entities';
 
 @Controller('events')
 @ApiTags('events')
-export class EventController {
-  constructor(private readonly eventService: EventService) {}
+export class ConsentEventController {
+  constructor(private readonly eventService: ConsentEventService) {}
 
   @Post()
   async createEvent(@Body() input: CreateEventDto): Promise<Consent> {

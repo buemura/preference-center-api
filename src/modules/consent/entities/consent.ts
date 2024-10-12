@@ -1,6 +1,6 @@
-import { ConsentEvent } from '../event/event';
-import { User } from '../user/user';
-import { ConsentId } from './consent.enum';
+import { User } from '@/modules/user/entities';
+import { ConsentId } from '../enums';
+import { ConsentEvent } from './consent-event';
 
 export type ConsentCtor = {
   consentId: ConsentId;

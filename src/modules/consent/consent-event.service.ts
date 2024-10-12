@@ -1,13 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { TYPES } from '@/constants/types';
-import { ConsentRepository } from '../consent/consent.repository';
-import { CreateEventDto } from './dtos/create-event.dto';
-import { ConsentEvent } from './event';
-import { Consent } from '../consent/consent';
+import { CreateEventDto } from './dtos';
+import { Consent, ConsentEvent } from './entities';
+import { ConsentRepository } from './repositories';
 
 @Injectable()
-export class EventService {
+export class ConsentEventService {
   constructor(
     @Inject(TYPES.ConsentRepository)
     private readonly consentRepository: ConsentRepository,

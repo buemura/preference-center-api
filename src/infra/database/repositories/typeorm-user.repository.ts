@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 
 import { TYPES } from '@/constants/types';
-import { User } from '@/modules/user/user';
-import { UserRepository } from '@/modules/user/user.repository';
+import { User } from '@/modules/user/entities';
+import { UserRepository } from '@/modules/user/repositories';
 import { UserSchema } from '../schemas/user.schema';
 
 @Injectable()
