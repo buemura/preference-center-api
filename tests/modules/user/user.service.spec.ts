@@ -3,8 +3,8 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 
-import { UserRepository } from '@/modules/user/repositories';
-import { UserService } from '@/modules/user/user.service';
+import { UserRepository } from '../../../src/modules/user/repositories';
+import { UserService } from '../../../src/modules/user/user.service';
 import { UserRepositoryMock } from '../../mocks/repositories/user.repository.mock';
 
 describe('UserService', () => {
