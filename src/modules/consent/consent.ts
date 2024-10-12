@@ -2,12 +2,10 @@ import { ConsentEvent } from '../event/event';
 import { User } from '../user/user';
 import { ConsentId } from './consent.enum';
 
-type NotificationType = 'email' | 'sms';
-
 export type ConsentCtor = {
+  consentId: ConsentId;
   userId: string;
   enabled: boolean;
-  type: NotificationType;
 };
 
 export class Consent {
@@ -20,16 +18,10 @@ export class Consent {
   static create(props: ConsentCtor) {
     const consent = new Consent();
     Object.assign(consent, {
-      consentId: this.generateId(props.type),
+      consentId: props.consentId,
       userId: props.userId,
       enabled: props.enabled,
     });
     return consent;
-  }
-
-  private static generateId(type: NotificationType): string {
-    return type === 'email'
-      ? ConsentId.EMAIL_NOTIFICATIONS
-      : ConsentId.SMS_NOTIFICATIONS;
   }
 }

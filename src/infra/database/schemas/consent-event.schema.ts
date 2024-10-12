@@ -20,6 +20,10 @@ export const ConsentEventSchema = new EntitySchema<ConsentEvent>({
       type: String,
       name: 'consent_id',
     },
+    enabled: {
+      type: Boolean,
+      nullable: true,
+    },
     createdAt: {
       type: 'timestamp',
       createDate: true,
