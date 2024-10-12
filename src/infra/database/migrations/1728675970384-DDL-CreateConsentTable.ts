@@ -8,18 +8,18 @@ export class DDLCreateConsentTable1728675970384 implements MigrationInterface {
         name: ConsentSchema.options.tableName,
         columns: [
           {
-            name: 'id',
+            name: 'consent_id',
             type: 'varchar',
-            isPrimary: true,
-          },
-          {
-            name: 'enabled',
-            type: 'boolean',
-            isNullable: false,
+            isPrimary: false,
           },
           {
             name: 'user_id',
             type: 'varchar',
+            isPrimary: false,
+          },
+          {
+            name: 'enabled',
+            type: 'boolean',
             isNullable: false,
           },
         ],
@@ -29,6 +29,19 @@ export class DDLCreateConsentTable1728675970384 implements MigrationInterface {
             referencedColumnNames: ['id'],
             referencedTableName: 'users',
             onDelete: 'CASCADE',
+          },
+        ],
+        indices: [
+          {
+            name: 'IDX_CONSENT_COMPOSITE_KEY',
+            columnNames: ['consent_id', 'user_id'],
+            isUnique: true,
+          },
+        ],
+        uniques: [
+          {
+            name: 'UNQ_CONSENT_COMPOSITE_KEY',
+            columnNames: ['consent_id', 'user_id'],
           },
         ],
       }),

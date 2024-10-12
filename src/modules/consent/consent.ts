@@ -1,3 +1,5 @@
+import { ConsentEvent } from '../event/event';
+import { User } from '../user/user';
 import { ConsentId } from './consent.enum';
 
 type NotificationType = 'email' | 'sms';
@@ -9,17 +11,23 @@ export type ConsentCtor = {
 };
 
 export class Consent {
-  id: string;
+  consentId: string;
   userId: string;
   enabled: boolean;
+  user: User;
+  consentEvents: ConsentEvent[];
 
-  constructor(input: ConsentCtor) {
-    this.id = this.generateId(input?.type);
-    this.userId = input?.userId;
-    this.enabled = input?.enabled;
+  static create(props: ConsentCtor) {
+    const consent = new Consent();
+    Object.assign(consent, {
+      consentId: this.generateId(props.type),
+      userId: props.userId,
+      enabled: props.enabled,
+    });
+    return consent;
   }
 
-  private generateId(type: NotificationType): string {
+  private static generateId(type: NotificationType): string {
     return type === 'email'
       ? ConsentId.EMAIL_NOTIFICATIONS
       : ConsentId.SMS_NOTIFICATIONS;

@@ -18,11 +18,6 @@ export class DDLCreateUserTable1728616872650 implements MigrationInterface {
             isUnique: true,
             isNullable: false,
           },
-          {
-            name: 'created_at',
-            type: 'timestamp',
-            default: 'now()',
-          },
         ],
       }),
     );

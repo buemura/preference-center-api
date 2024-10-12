@@ -3,23 +3,31 @@ import { EntitySchema } from 'typeorm';
 import { User } from '@/modules/user/user';
 
 export const UserSchema = new EntitySchema<User>({
-  name: User.name,
+  name: 'User',
   tableName: 'users',
   target: User,
   columns: {
     id: {
-      type: String,
+      type: 'uuid',
       primary: true,
+      generated: 'uuid',
     },
     email: {
       type: String,
-      nullable: false,
       unique: true,
-    },
-    createdAt: {
-      name: 'created_at',
-      type: 'timestamp',
       nullable: false,
+    },
+  },
+  relations: {
+    consents: {
+      type: 'one-to-many',
+      target: 'Consent',
+      inverseSide: 'user',
+    },
+    consentEvents: {
+      type: 'one-to-many',
+      target: 'ConsentEvent',
+      inverseSide: 'user',
     },
   },
 });

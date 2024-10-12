@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
-
-import { Consent } from '@/modules/consent/consent';
+import { Consent } from '../consent/consent';
+import { ConsentEvent } from '../event/event';
 
 export type UserCtor = {
   email: string;
@@ -10,15 +10,13 @@ export class User {
   id: string;
   email: string;
   consents: Consent[];
-  createdAt: Date;
+  consentEvents: ConsentEvent[];
 
   static create(props: UserCtor): User {
     const user = new User();
     Object.assign(user, {
       id: randomUUID(),
       email: props.email,
-      consent: [],
-      createdAt: new Date(),
     });
     return user;
   }

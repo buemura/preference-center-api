@@ -1,4 +1,6 @@
 import { randomUUID } from 'crypto';
+import { Consent } from '../consent/consent';
+import { User } from '../user/user';
 
 type ConsentEventCtor = {
   userId: string;
@@ -12,12 +14,18 @@ export class ConsentEvent {
   consentId: string;
   enabled: boolean;
   createdAt: Date;
+  user: User;
+  consent: Consent[];
 
-  constructor(input: ConsentEventCtor) {
-    this.id = randomUUID();
-    this.userId = input?.userId;
-    this.consentId = input?.consentId;
-    this.enabled = input?.enabled;
-    this.createdAt = new Date();
+  static create(props: ConsentEventCtor) {
+    const event = new ConsentEvent();
+    Object.assign(event, {
+      id: randomUUID(),
+      userId: props.userId,
+      consentId: props.consentId,
+      enabled: props.enabled,
+      createdAt: new Date(),
+    });
+    return event;
   }
 }
