@@ -25,7 +25,6 @@ async function bootstrap() {
     .setTitle('Preference Center API')
     .setDescription('Preference Center API')
     .setVersion('1.0')
-    .addTag('preference-center-api')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -3,10 +3,10 @@ services:
     image: postgres:latest
     hostname: db
     environment:
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_USER=admin
-      - POSTGRES_DB=preference_center
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
     ports:
-      - '5432:5432'
+      - '${DB_PORT}:5432'
     volumes:
       - ./data/pgdata:/var/lib/postgresql/data
