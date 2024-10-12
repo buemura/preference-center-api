@@ -1,6 +1,7 @@
 import {
   Inject,
   Injectable,
+  NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 
@@ -17,13 +18,18 @@ export class UserService {
   ) {}
 
   async getUser(id: string): Promise<User> {
-    return this.userRepository.findById(id);
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 
   async createUser(input: CreateUserDto): Promise<User> {
     const userExists = await this.userRepository.findByEmail(input.email);
     if (userExists) {
-      throw new UnprocessableEntityException('User already registered');
+      throw new UnprocessableEntityException('User already created');
     }
 
     const user = User.create({ email: input.email });
@@ -31,6 +37,11 @@ export class UserService {
   }
 
   async deleteUser(id: string): Promise<void> {
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
     await this.userRepository.delete(id);
   }
 }
