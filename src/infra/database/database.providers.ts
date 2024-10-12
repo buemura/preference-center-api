@@ -3,7 +3,6 @@ import { DataSource } from 'typeorm';
 
 import { TYPES } from '@/constants/types';
 import {
-  TypeOrmConsentEventRepository,
   TypeOrmConsentRepository,
   TypeOrmUserRepository,
 } from './repositories';
@@ -34,9 +33,5 @@ export const databaseProviders: Provider[] = [
   {
     provide: TYPES.ConsentRepository,
     useClass: TypeOrmConsentRepository,
-  },
-  {
-    provide: TYPES.ConsentEventRepository,
-    useClass: TypeOrmConsentEventRepository,
   },
 ];

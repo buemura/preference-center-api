@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 
 import { Consent, ConsentEvent } from '@/modules/consent/entities';
 
-export type UserCtor = {
+type UserCtor = {
   email: string;
 };
 

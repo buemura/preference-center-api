@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { EventModule } from './consent/consent-event.module';
+import { ConsentModule } from './consent/consent.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -11,7 +11,7 @@ import { UserModule } from './user/user.module';
       envFilePath: '.env',
     }),
     UserModule,
-    EventModule,
+    ConsentModule,
   ],
 })
 export class AppModule {}

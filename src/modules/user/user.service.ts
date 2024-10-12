@@ -26,9 +26,7 @@ export class UserService {
       throw new UnprocessableEntityException('User already registered');
     }
 
-    const user = User.create({
-      email: input.email,
-    });
+    const user = User.create({ email: input.email });
     return this.userRepository.create(user);
   }
 

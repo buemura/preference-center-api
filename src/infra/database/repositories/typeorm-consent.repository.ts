@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { DataSource, EntityManager } from 'typeorm';
 
 import { TYPES } from '@/constants/types';
 import { Consent, ConsentEvent } from '@/modules/consent/entities';
@@ -14,15 +14,18 @@ export class TypeOrmConsentRepository implements ConsentRepository {
     private readonly connection: DataSource,
   ) {}
 
-  async create(consent: Consent, consentEvent: ConsentEvent): Promise<Consent> {
-    return this.connection.transaction(async (manager) => {
-      const savedConsent = await manager
+  async bulkSave(
+    consents: Consent[],
+    events: ConsentEvent[],
+  ): Promise<Consent[]> {
+    return this.connection.transaction(async (manager: EntityManager) => {
+      const savedConsents = await manager
         .getRepository(ConsentSchema)
-        .save(consent);
+        .save(consents);
 
-      await manager.getRepository(ConsentEventSchema).save(consentEvent);
+      await manager.getRepository(ConsentEventSchema).save(events);
 
-      return savedConsent;
+      return savedConsents;
     });
   }
 }
