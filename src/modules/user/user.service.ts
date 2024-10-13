@@ -21,10 +21,14 @@ export class UserService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async getUser(id: string): Promise<User> {
-    this.logger.info(`[UserService][getUser] - Get user for id: ${id}`);
+  async getUserById(id: string): Promise<User> {
+    return this.userRepository.findById(id);
+  }
 
-    const user = await this.userRepository.findById(id);
+  async getUser(id: string): Promise<User> {
+    this.logger.info(`[UserService][getUser] - Getting user for id: ${id}`);
+
+    const user = await this.getUserById(id);
     if (!user) {
       this.logger.error(`[UserService][getUser] - User ${id} not found`);
       throw new NotFoundException('User not found');
@@ -56,7 +60,7 @@ export class UserService {
   async deleteUser(id: string): Promise<void> {
     this.logger.info(`[UserService][deleteUser] - Getting user for id: ${id}`);
 
-    const user = await this.userRepository.findById(id);
+    const user = await this.getUserById(id);
 
     if (!user) {
       this.logger.error(`[UserService][deleteUser] - User ${id} not found`);

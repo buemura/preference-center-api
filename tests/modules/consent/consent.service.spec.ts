@@ -5,12 +5,12 @@ import { CreateEventsDto } from '@/modules/consent/dtos';
 import { ConsentId } from '@/modules/consent/enums';
 import { ConsentRepository } from '@/modules/consent/repositories';
 import { UserService } from '@/modules/user/user.service';
+import { LoggerMock } from '../../mocks/logger/logger.mock';
 import { ConsentRepositoryMock } from '../../mocks/repositories/consent.repository.mock';
 import {
   USER_MOCK_DATA,
   UserRepositoryMock,
 } from '../../mocks/repositories/user.repository.mock';
-import { LoggerMock } from '../../mocks/logger/logger.mock';
 
 describe('ConsentService', () => {
   let consentRepository: ConsentRepository;
@@ -40,9 +40,7 @@ describe('ConsentService', () => {
   });
 
   it('should throw when user is not found', async () => {
-    jest
-      .spyOn(userService, 'getUser')
-      .mockRejectedValueOnce(new NotFoundException());
+    jest.spyOn(userService, 'getUserById').mockResolvedValueOnce(null);
 
     const bulkSaveSpy = jest.spyOn(consentRepository, 'bulkSave');
 

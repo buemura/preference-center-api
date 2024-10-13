@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { TYPES } from '@/common/constants';
 import { ILogger } from '@/common/interfaces';
@@ -20,7 +20,17 @@ export class ConsentService {
   ) {}
 
   async createEvents({ user, consents }: CreateEventsDto): Promise<Consent[]> {
-    const userExists = await this.userService.getUser(user.id);
+    this.logger.info(
+      `[ConsentService][createEvents] - Validating user for id: ${user.id}`,
+    );
+
+    const userExists = await this.userService.getUserById(user.id);
+    if (!userExists) {
+      this.logger.error(
+        `[ConsentService][createEvents] - User ${user.id} not found`,
+      );
+      throw new NotFoundException('User not found');
+    }
 
     const consentList: Consent[] = [];
     const consentEventList: ConsentEvent[] = [];
