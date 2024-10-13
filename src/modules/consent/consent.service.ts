@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { TYPES } from '@/constants/types';
+import { TYPES } from '@/common/constants';
+import { ILogger } from '@/common/interfaces';
 import { UserService } from '@/modules/user/user.service';
 import { CreateEventsDto } from './dtos';
 import { Consent, ConsentEvent } from './entities';
@@ -9,6 +10,9 @@ import { ConsentRepository } from './repositories';
 @Injectable()
 export class ConsentService {
   constructor(
+    @Inject(TYPES.Logger)
+    private readonly logger: ILogger,
+
     @Inject(TYPES.ConsentRepository)
     private readonly consentRepository: ConsentRepository,
 
@@ -27,6 +31,10 @@ export class ConsentService {
         consentId: c.id,
         enabled: c.enabled,
       };
+
+      this.logger.info(
+        `[ConsentService][createEvents] - Creating user for id: ${user.id}`,
+      );
 
       consentList.push(Consent.create(input));
       consentEventList.push(ConsentEvent.create(input));

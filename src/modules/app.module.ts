@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { LoggerModule } from '@/infra/logger';
 import { ConsentModule } from './consent/consent.module';
 import { UserModule } from './user/user.module';
 
@@ -10,6 +11,7 @@ import { UserModule } from './user/user.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    LoggerModule,
     UserModule,
     ConsentModule,
   ],

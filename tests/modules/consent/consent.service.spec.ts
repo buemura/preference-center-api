@@ -10,6 +10,7 @@ import {
   USER_MOCK_DATA,
   UserRepositoryMock,
 } from '../../mocks/repositories/user.repository.mock';
+import { LoggerMock } from '../../mocks/logger/logger.mock';
 
 describe('ConsentService', () => {
   let consentRepository: ConsentRepository;
@@ -30,8 +31,8 @@ describe('ConsentService', () => {
 
   beforeAll(() => {
     consentRepository = new ConsentRepositoryMock();
-    userService = new UserService(new UserRepositoryMock());
-    sut = new ConsentService(consentRepository, userService);
+    userService = new UserService(new LoggerMock(), new UserRepositoryMock());
+    sut = new ConsentService(new LoggerMock(), consentRepository, userService);
   });
 
   afterAll(() => {

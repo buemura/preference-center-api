@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 
-import { TYPES } from '@/constants/types';
+import { TYPES } from '@/common/constants';
 import { User } from '@/modules/user/entities';
 import { UserRepository } from '@/modules/user/repositories';
 import { UserSchema } from '../schemas/user.schema';

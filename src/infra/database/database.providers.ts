@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
-import { TYPES } from '@/constants/types';
+import { TYPES } from '@/common/constants';
 import {
   TypeOrmConsentRepository,
   TypeOrmUserRepository,

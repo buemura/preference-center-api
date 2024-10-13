@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
 
-import { TYPES } from '@/constants/types';
+import { TYPES } from '@/common/constants';
 import { Consent, ConsentEvent } from '@/modules/consent/entities';
 import { ConsentRepository } from '@/modules/consent/repositories';
 import { ConsentEventSchema } from '../schemas/consent-event.schema';

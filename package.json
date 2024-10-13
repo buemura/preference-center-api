@@ -33,7 +33,8 @@
     "pg": "^8.13.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "winston": "^3.15.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -79,7 +80,7 @@
       "interfaces",
       "jestGlobalMocks.ts",
       "src/infra/*",
-      "src/constants/*",
+      "src/common/*",
       "main.ts",
       "index.ts",
       ".mock.ts",

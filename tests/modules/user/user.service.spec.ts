@@ -5,6 +5,7 @@ import {
 
 import { UserRepository } from '../../../src/modules/user/repositories';
 import { UserService } from '../../../src/modules/user/user.service';
+import { LoggerMock } from '../../mocks/logger/logger.mock';
 import { UserRepositoryMock } from '../../mocks/repositories/user.repository.mock';
 
 describe('UserService', () => {
@@ -13,7 +14,7 @@ describe('UserService', () => {
 
   beforeAll(() => {
     userRepository = new UserRepositoryMock();
-    sut = new UserService(userRepository);
+    sut = new UserService(new LoggerMock(), userRepository);
   });
 
   afterAll(() => {
