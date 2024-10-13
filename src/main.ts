@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-import { AllExceptionsFilter } from '@/infra/filters';
 import { LoggerInterceptor } from '@/infra/logger';
 import { AppModule } from '@/modules/app.module';
 
@@ -11,7 +10,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
-  app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new LoggerInterceptor());
   app.useGlobalPipes(
     new ValidationPipe({

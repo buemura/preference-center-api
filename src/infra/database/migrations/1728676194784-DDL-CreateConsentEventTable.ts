@@ -48,7 +48,7 @@ export class DDLCreateConsentEventTable1728676194784
       new TableForeignKey({
         columnNames: ['user_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'users',
+        referencedTableName: 'user',
         onDelete: 'CASCADE',
       }),
     );
@@ -58,7 +58,7 @@ export class DDLCreateConsentEventTable1728676194784
       new TableForeignKey({
         columnNames: ['user_id', 'consent_id'],
         referencedColumnNames: ['user_id', 'consent_id'],
-        referencedTableName: 'consents',
+        referencedTableName: 'consent',
         onDelete: 'CASCADE',
       }),
     );

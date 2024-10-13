@@ -1,10 +1,11 @@
 import { EntitySchema } from 'typeorm';
 
-import { Consent } from '@/modules/consent/entities';
+import { Consent, ConsentEvent } from '@/modules/consent/entities';
+import { User } from '@/modules/user/entities';
 
 export const ConsentSchema = new EntitySchema<Consent>({
   name: 'Consent',
-  tableName: 'consents',
+  tableName: 'consent',
   target: Consent,
   columns: {
     consentId: {
@@ -25,13 +26,13 @@ export const ConsentSchema = new EntitySchema<Consent>({
   relations: {
     user: {
       type: 'many-to-one',
-      target: 'User',
+      target: () => User,
       joinColumn: { name: 'user_id' },
-      inverseSide: 'consents',
+      inverseSide: 'consent',
     },
     consentEvents: {
       type: 'one-to-many',
-      target: 'ConsentEvent',
+      target: () => ConsentEvent,
       inverseSide: 'consent',
     },
   },

@@ -27,7 +27,7 @@ export class DDLCreateConsentTable1728675970384 implements MigrationInterface {
           {
             columnNames: ['user_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'users',
+            referencedTableName: 'user',
             onDelete: 'CASCADE',
           },
         ],
