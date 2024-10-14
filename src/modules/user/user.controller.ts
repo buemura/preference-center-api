@@ -12,26 +12,34 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { CreateUserDto } from './dtos';
 import { User } from './entities';
-import { UserService } from './user.service';
+import {
+  CreateUserUsecase,
+  DeleteUserUsecase,
+  GetUserUsecase,
+} from './usecases';
 
 @Controller('users')
 @ApiTags('Users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly getUserUsecase: GetUserUsecase,
+    private readonly createUserUsecase: CreateUserUsecase,
+    private readonly deleteUserUsecase: DeleteUserUsecase,
+  ) {}
 
   @Get(':id')
   async getUser(@Param('id') id: string): Promise<User> {
-    return this.userService.getUser(id);
+    return this.getUserUsecase.execute(id);
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async createUser(@Body() input: CreateUserDto): Promise<User> {
-    return this.userService.createUser(input);
+    return this.createUserUsecase.execute(input);
   }
 
   @Delete(':id')
   async deleteUser(@Param('id') id: string): Promise<void> {
-    await this.userService.deleteUser(id);
+    await this.deleteUserUsecase.execute(id);
   }
 }

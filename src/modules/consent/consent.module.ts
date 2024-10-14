@@ -4,11 +4,11 @@ import { DatabaseModule } from '@/infra/database';
 import { LoggerModule } from '@/infra/logger';
 import { UserModule } from '../user/user.module';
 import { ConsentEventController } from './consent-event.controller';
-import { ConsentService } from './consent.service';
+import { CreateEventsUsecase } from './usecases';
 
 @Module({
   imports: [DatabaseModule, LoggerModule, UserModule],
   controllers: [ConsentEventController],
-  providers: [ConsentService],
+  providers: [CreateEventsUsecase],
 })
 export class ConsentModule {}

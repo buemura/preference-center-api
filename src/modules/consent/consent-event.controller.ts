@@ -1,17 +1,17 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { ConsentService } from './consent.service';
 import { CreateEventsDto } from './dtos';
 import { Consent } from './entities';
+import { CreateEventsUsecase } from './usecases';
 
 @Controller('events')
 @ApiTags('events')
 export class ConsentEventController {
-  constructor(private readonly consentService: ConsentService) {}
+  constructor(private readonly createEventsUsecase: CreateEventsUsecase) {}
 
   @Post()
   async createEvents(@Body() input: CreateEventsDto): Promise<Consent[]> {
-    return this.consentService.createEvents(input);
+    return this.createEventsUsecase.execute(input);
   }
 }

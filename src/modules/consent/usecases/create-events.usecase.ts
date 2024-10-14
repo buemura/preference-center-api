@@ -2,13 +2,13 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { TYPES } from '@/common/constants';
 import { ILogger } from '@/common/interfaces';
-import { UserService } from '@/modules/user/user.service';
-import { CreateEventsDto } from './dtos';
-import { Consent, ConsentEvent } from './entities';
-import { ConsentRepository } from './repositories';
+import { UserService } from '@/modules/user/services';
+import { CreateEventsDto } from '../dtos';
+import { Consent, ConsentEvent } from '../entities';
+import { ConsentRepository } from '../repositories';
 
 @Injectable()
-export class ConsentService {
+export class CreateEventsUsecase {
   constructor(
     @Inject(TYPES.Logger)
     private readonly logger: ILogger,
@@ -19,15 +19,15 @@ export class ConsentService {
     private readonly userService: UserService,
   ) {}
 
-  async createEvents({ user, consents }: CreateEventsDto): Promise<Consent[]> {
+  async execute({ user, consents }: CreateEventsDto): Promise<Consent[]> {
     this.logger.info(
-      `[ConsentService][createEvents] - Validating user for id: ${user.id}`,
+      `[CreateEventsUsecase][execute] - Validating user for id: ${user.id}`,
     );
 
     const userExists = await this.userService.getUserById(user.id);
     if (!userExists) {
       this.logger.error(
-        `[ConsentService][createEvents] - User ${user.id} not found`,
+        `[CreateEventsUsecase][execute] - User ${user.id} not found`,
       );
       throw new NotFoundException('User not found');
     }
@@ -43,7 +43,7 @@ export class ConsentService {
       };
 
       this.logger.info(
-        `[ConsentService][createEvents] - Creating user for id: ${user.id}`,
+        `[CreateEventsUsecase][execute] - Creating user for id: ${user.id}`,
       );
 
       consentList.push(Consent.create(input));
