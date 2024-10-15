@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -16,10 +7,6 @@ import {
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 
-import {
-  NotFoundSchema,
-  UnprocessableEntitySchema,
-} from '@/common/schemas/swagger.schema';
 import { CreateUserDto } from './dtos';
 import { User } from './entities';
 import {
@@ -38,22 +25,22 @@ export class UserController {
   ) {}
 
   @Get(':id')
-  @ApiOkResponse()
-  @ApiNotFoundResponse({ type: NotFoundSchema })
+  @ApiOkResponse({ description: 'User found' })
+  @ApiNotFoundResponse({ description: 'User not found' })
   async getUser(@Param('id') id: string): Promise<User> {
     return this.getUserUsecase.execute(id);
   }
 
   @Post()
-  @ApiCreatedResponse()
-  @ApiUnprocessableEntityResponse({ type: UnprocessableEntitySchema })
+  @ApiCreatedResponse({ description: 'User created' })
+  @ApiUnprocessableEntityResponse({ description: 'User already created' })
   async createUser(@Body() input: CreateUserDto): Promise<User> {
     return this.createUserUsecase.execute(input);
   }
 
   @Delete(':id')
-  @ApiOkResponse()
-  @ApiNotFoundResponse({ type: NotFoundSchema })
+  @ApiOkResponse({ description: 'User deleted' })
+  @ApiNotFoundResponse({ description: 'User not found' })
   async deleteUser(@Param('id') id: string): Promise<void> {
     await this.deleteUserUsecase.execute(id);
   }

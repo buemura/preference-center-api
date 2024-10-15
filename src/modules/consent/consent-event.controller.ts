@@ -5,7 +5,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { NotFoundSchema } from '@/common/schemas/swagger.schema';
 import { CreateEventsDto } from './dtos';
 import { Consent } from './entities';
 import { CreateEventsUsecase } from './usecases';
@@ -16,8 +15,8 @@ export class ConsentEventController {
   constructor(private readonly createEventsUsecase: CreateEventsUsecase) {}
 
   @Post()
-  @ApiCreatedResponse()
-  @ApiNotFoundResponse({ type: NotFoundSchema })
+  @ApiCreatedResponse({ description: 'Consent events created' })
+  @ApiNotFoundResponse({ description: 'User not found' })
   async createEvents(@Body() input: CreateEventsDto): Promise<Consent[]> {
     return this.createEventsUsecase.execute(input);
   }
