@@ -1,10 +1,10 @@
 # Preference Center API
 
-## Table of content
+## Table of contents
 
-[Overview](#overview)
-[Technologies](#technologies)
-[Project setup](#project-setup)
+- [Overview](#overview)
+- [Technologies](#technologies)
+- [Project setup](#project-setup)
 
 ## Overview
 
