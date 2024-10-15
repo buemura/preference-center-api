@@ -8,8 +8,18 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiUnprocessableEntityResponse,
+} from '@nestjs/swagger';
 
+import {
+  NotFoundSchema,
+  UnprocessableEntitySchema,
+} from '@/common/schemas/swagger.schema';
 import { CreateUserDto } from './dtos';
 import { User } from './entities';
 import {
@@ -28,17 +38,22 @@ export class UserController {
   ) {}
 
   @Get(':id')
+  @ApiOkResponse()
+  @ApiNotFoundResponse({ type: NotFoundSchema })
   async getUser(@Param('id') id: string): Promise<User> {
     return this.getUserUsecase.execute(id);
   }
 
   @Post()
-  @HttpCode(HttpStatus.CREATED)
+  @ApiCreatedResponse()
+  @ApiUnprocessableEntityResponse({ type: UnprocessableEntitySchema })
   async createUser(@Body() input: CreateUserDto): Promise<User> {
     return this.createUserUsecase.execute(input);
   }
 
   @Delete(':id')
+  @ApiOkResponse()
+  @ApiNotFoundResponse({ type: NotFoundSchema })
   async deleteUser(@Param('id') id: string): Promise<void> {
     await this.deleteUserUsecase.execute(id);
   }
