@@ -99,3 +99,4 @@ http://localhost:8080/docs
 
 - Better document the API
 - Improve consent format on getUser response.
+- Github Actions to run tests and build application
