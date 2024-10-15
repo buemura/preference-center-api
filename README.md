@@ -94,3 +94,8 @@ npm run start:dev
 ```bash
 http://localhost:8080/docs
 ```
+
+# Improvements
+
+- Better document the API
+- Improve consent format on getUser response.
