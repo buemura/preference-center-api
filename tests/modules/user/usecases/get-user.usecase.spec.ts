@@ -1,5 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 
+import { Consent } from '@/modules/consent/entities';
+import { ConsentId } from '@/modules/consent/enums';
 import { UserRepository } from '@/modules/user/repositories';
 import { GetUserUsecase } from '@/modules/user/usecases';
 import { LoggerMock } from '../../../mocks/logger/logger.mock';
@@ -25,11 +27,36 @@ describe('GetUserUsecase', () => {
     await expect(sut.execute(id)).rejects.toThrow(NotFoundException);
   });
 
-  it('should return an user', async () => {
-    const id = 'any_id';
-    const findByIdSpy = jest.spyOn(userRepository, 'findById');
+  it('should return a user with consents', async () => {
+    const mockUser = {
+      id: 'any_id',
+      email: 'any_email',
+      consents: [
+        Consent.create({
+          consentId: ConsentId.EMAIL_NOTIFICATIONS,
+          userId: 'any_id',
+          enabled: true,
+        }),
+        Consent.create({
+          consentId: ConsentId.SMS_NOTIFICATIONS,
+          userId: 'any_id',
+          enabled: false,
+        }),
+      ],
+      consentEvents: [],
+    };
 
-    await sut.execute(id);
-    expect(findByIdSpy).toHaveBeenCalledWith(id);
+    jest.spyOn(userRepository, 'findById').mockResolvedValueOnce(mockUser);
+
+    const result = await sut.execute(mockUser.id);
+
+    expect(result).toEqual({
+      id: mockUser.id,
+      email: mockUser.email,
+      consents: [
+        { id: 'email_notifications', enabled: true },
+        { id: 'sms_notifications', enabled: false },
+      ],
+    });
   });
 });

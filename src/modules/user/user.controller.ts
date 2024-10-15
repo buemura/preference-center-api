@@ -7,7 +7,7 @@ import {
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 
-import { CreateUserDto } from './dtos';
+import { CreateUserDto, GetUserResponseDto } from './dtos';
 import { User } from './entities';
 import {
   CreateUserUsecase,
@@ -25,9 +25,9 @@ export class UserController {
   ) {}
 
   @Get(':id')
-  @ApiOkResponse({ description: 'User found' })
+  @ApiOkResponse({ description: 'User found', type: GetUserResponseDto })
   @ApiNotFoundResponse({ description: 'User not found' })
-  async getUser(@Param('id') id: string): Promise<User> {
+  async getUser(@Param('id') id: string): Promise<GetUserResponseDto> {
     return this.getUserUsecase.execute(id);
   }
 

@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { TYPES } from '@/common/constants';
 import { ILogger } from '@/common/interfaces';
-import { User } from '../entities';
+import { GetUserResponseDto } from '../dtos';
 import { UserRepository } from '../repositories';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class GetUserUsecase {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async execute(id: string): Promise<User> {
+  async execute(id: string): Promise<GetUserResponseDto> {
     this.logger.info(`[GetUserUsecase][execute] - Getting user for id: ${id}`);
 
     const user = await this.userRepository.findById(id);
@@ -24,6 +24,15 @@ export class GetUserUsecase {
       throw new NotFoundException('User not found');
     }
 
-    return user;
+    const formattedConsents = user.consents.map(({ consentId, enabled }) => ({
+      id: consentId,
+      enabled,
+    }));
+
+    return {
+      id: user.id,
+      email: user.email,
+      consents: formattedConsents,
+    };
   }
 }
