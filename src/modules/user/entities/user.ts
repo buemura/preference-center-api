@@ -17,6 +17,7 @@ export class User {
     Object.assign(user, {
       id: randomUUID(),
       email: props.email,
+      consents: [],
     });
     return user;
   }
