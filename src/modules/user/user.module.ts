@@ -19,6 +19,6 @@ import { UserController } from './user.controller';
     CreateUserUsecase,
     DeleteUserUsecase,
   ],
-  exports: [UserService, GetUserUsecase, CreateUserUsecase, DeleteUserUsecase],
+  exports: [UserService],
 })
 export class UserModule {}
